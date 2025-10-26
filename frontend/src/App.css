@@ -1,0 +1,94 @@
+:root{
+  --primary-color:#d41010;
+  --secondary-color:#f44336;
+  --background:linear-gradient(to right, #6ee7cd, #6197e2);
+  --text-color:#333333;
+  --border-color: #dddddd;
+  
+}
+
+*{
+  box-sizing: border-box;
+}
+
+body{
+  margin: 0;
+  background: linear-gradient(to right, #6ee7cd, #6197e2);
+}
+
+.App{
+ max-width: 750px;
+ margin: 40px auto;
+ padding: 20px;
+ display: flex;
+  flex-direction: column;
+}
+
+h2{
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.form-section{
+  background-color: #6ee7cd;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 40px;
+  box-shadow: 3px 3px 10px rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.form-section:hover{
+  box-shadow: 6px 6px 15px rgba(0,0,0,0.2);
+}
+
+.form-section form{
+  display: flex;
+  flex-direction: column;
+  gap:16px;
+}
+
+.form-section input, .form-section textarea{
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  font-size: 1rem;
+}
+
+.post-section{
+  margin-top: 20px;
+}
+
+.post-card{
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 3px 3px 10px rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s ease;
+}
+.post-card:hover{
+  box-shadow: 6px 6px 15px rgba(0,0,0,0.2);
+}
+
+.post-author{
+  font-style: italic;
+  color: var(--secondary-color);
+  margin-bottom: 10px;
+}
+
+.post-card p{
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+.post-actions{
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  border-top: 1px solid #333333;
+  padding-top: 10px;
+}
