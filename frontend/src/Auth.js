@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {useNavigate} from 'react-router-dom'
 import "./AuthPage.css";
 
 export default function AuthPage() {
@@ -8,6 +9,7 @@ export default function AuthPage() {
 
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+  const navigate = useNavigate();
 
   const [message, setMessage] = useState("");
 
@@ -42,6 +44,7 @@ export default function AuthPage() {
           const result = await response.json();
           if(result.token){
             localStorage.setItem('token',result.token);
+            navigate('/')
           }
           else{
             setMessage(result.message);

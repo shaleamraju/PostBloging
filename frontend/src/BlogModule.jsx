@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './App.css';
 
 const API_URL = 'http://localhost:3001/api/posts';
@@ -9,6 +10,14 @@ function BlogModule() {
   const [content, setContent] = useState('');
   const [posts, setPosts] = useState([]);
   const [editingPostId, setEditingPostId] = useState(null);
+  const navigate = useNavigate();
+  const token = localStorage.getItem('token');
+
+  useEffect(()=>{
+    if(!token){
+      navigate('/auth')
+    }
+  })
 
   const fetchPosts = async () => {
     try {
