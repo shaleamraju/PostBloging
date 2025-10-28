@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './App.css';
 
-const API_URL = 'http://localhost:3001/api/posts';
+const API_URL = 'https://postbloging.onrender.com/api/posts';
 
 function BlogModule() {
   const [title, setTitle] = useState('');
