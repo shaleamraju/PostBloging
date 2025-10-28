@@ -55,10 +55,13 @@ export default function AuthPage() {
     }
   }
 
+  
 
   return (
     <div className="auth-body">
+      
       <div className="auth-container">
+       
         <div className="form-section authform">
           <h2>Register</h2>
           <form onSubmit={handleRegister}>

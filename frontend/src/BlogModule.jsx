@@ -76,8 +76,14 @@ function BlogModule() {
     setEditingPostId(post._id);
   };
 
+  const handleLogout = ()=>{
+   localStorage.removeItem('token')
+   navigate('/auth')
+  }
+
   return (
-    <div className="App">
+    <div className="App-container">
+       <button onClick={handleLogout} style={{float:"right", padding:"10px", marhing:"10px"}}>logout</button>
       <div className="form-section">
         <h2>{editingPostId ? 'Edit Post' : 'Create a New Post'}</h2>
         <form onSubmit={handleSubmit}>
