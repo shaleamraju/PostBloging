@@ -19,7 +19,7 @@ app.use('/api/auth', authRoutes);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 //app.use(errorHandler);
 
-mongoose.connect(process.env.Database_uri)
+mongoose.connect(process.env.DATABASE_URI)
   .then(() => console.log("✅ MongoDB connected successfully"))
   .catch(err => console.log("❌ Error connecting to MongoDB:", err));
 
