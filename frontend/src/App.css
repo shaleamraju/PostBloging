@@ -174,7 +174,6 @@ button.logout-btn:hover {
 
 .post-actions {
   display: flex;
-<<<<<<< HEAD
   gap: 10px;
   border-top: 1px solid #333333;
   padding-top: 10px;
@@ -187,32 +186,3 @@ button.logout-btn:hover {
   margin-bottom: 15px;
   border-radius: 8px;
 }
-=======
-  gap: 12px;
-  margin-top: 20px;
-}
-
-.post-actions button {
-  flex: 1;
-  padding: 10px;
-  border: none;
-  border-radius: 8px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.post-actions button:first-child {
-  background: #3b82f6;
-  color: #fff;
-}
-
-.post-actions button:last-child {
-  background: #ef4444;
-  color: #fff;
-}
-
-.post-actions button:hover {
-  opacity: 0.9;
-}
->>>>>>> d7ea18b24beed5f8372561693fd36f3ce68d35b7
