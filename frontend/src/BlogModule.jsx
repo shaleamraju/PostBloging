@@ -5,10 +5,6 @@ import { useRef } from 'react';
 
 const API_BASE_URL = `http://localhost:3001/api/posts`;
 
-<<<<<<< HEAD
-=======
-const API_URL = 'https://postbloging.onrender.com/api/posts'; 
->>>>>>> d7ea18b24beed5f8372561693fd36f3ce68d35b7
 
 function BlogModule() {
   const [title, setTitle] = useState('');
@@ -102,12 +98,8 @@ function BlogModule() {
 
   return (
     <div className="App-container">
-<<<<<<< HEAD
       <button onClick={handleLogout} style={{float:"right", padding:"10px", margin:"10px"}}>logout</button>
        <h1 style={{textAlign:'center'}}>Blog Module</h1>
-=======
-       <button onClick={handleLogout} style={{float:"right", padding:"10px", marhing:"10px"}}>logout</button>
->>>>>>> d7ea18b24beed5f8372561693fd36f3ce68d35b7
       <div className="form-section">
         <h2>{editingPostId ? 'Edit Post' : 'Create a New Post'}</h2>
         <form onSubmit={handleSubmit}>
