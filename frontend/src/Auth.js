@@ -16,7 +16,7 @@ export default function AuthPage() {
   const handleRegister = async(e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3001/api/auth/register", {
+      const response = await fetch("https://postbloging.onrender.com/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -35,7 +35,7 @@ export default function AuthPage() {
   const handleLogin = async(e) =>{
     e.preventDefault();
     try{
-          const response = await fetch('http://localhost:3001/api/auth/login',{
+          const response = await fetch('https://postbloging.onrender.com/api/auth/login',{
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({email: loginEmail, password: loginPassword}) 
@@ -55,10 +55,13 @@ export default function AuthPage() {
     }
   }
 
+  
 
   return (
     <div className="auth-body">
+      
       <div className="auth-container">
+       
         <div className="form-section authform">
           <h2>Register</h2>
           <form onSubmit={handleRegister}>
