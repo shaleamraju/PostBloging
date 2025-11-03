@@ -2,13 +2,32 @@ const express = require('express');
 const router = express.Router();
 const Post = require('../models/PostModel');
 
+const upload = require('../middleware/upload.js');
+const fs = require('fs');
+const path = require('path');
+
+
+
+///const getPublicId = (imageUrl) => {
+  //const parts = imageUrl.split('/');
+  //const publicIdWithExtension = parts.slice(-2).join('/');
+  //const publicID = publicIdWithExtension.split('.')[0];
+  //return publicID;
+//}
+
 // Create Post
-router.post('/', async (req, res) => {
+router.post('/', upload.single('image'), async (req, res) => {
   try {
     const { title, author, content } = req.body;
-    const post = await Post.create({ title, author, content });
+    // let imageUrl = '';
+    // if (req.file) {
+    //   imageUrl = `/uploads/${req.file.filename}`;
+    // }
+    const imageUrl = req.file ? req.file.path : '';
+    const post = await Post.create({ title, author, content, imageUrl });
     res.status(201).json(post);
   } catch (error) {
+    console.error('Error creating post:', error);
     res.status(500).json({ error: 'Failed to create post' });
   }
 });

@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './App.css';
+import { useRef } from 'react';
 
-const API_URL = 'http://localhost:3001/api/posts';
+const API_BASE_URL = `http://localhost:3001/api/posts`;
+
 
 function BlogModule() {
   const [title, setTitle] = useState('');
@@ -12,16 +14,18 @@ function BlogModule() {
   const [editingPostId, setEditingPostId] = useState(null);
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
+  const fileInputRef = useRef(null);
+  const [Image, setImage] = useState(null);
 
   useEffect(()=>{
     if(!token){
       navigate('/auth')
     }
-  })
+  },[token, navigate]);
 
   const fetchPosts = async () => {
     try {
-      const response = await fetch(API_URL);
+      const response = await fetch(API_BASE_URL);
       const data = await response.json();
       setPosts(data);
     } catch (error) {
@@ -35,15 +39,19 @@ function BlogModule() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const postData = { title, author, content };
-    const url = editingPostId ? `${API_URL}/${editingPostId}` : API_URL;
+      const formData = new FormData();
+      formData.append('title', title);
+      formData.append('author', author);
+      formData.append('content', content);
+      if (Image) {
+        formData.append('image', Image);
+      }
+    const url = editingPostId ? `${API_BASE_URL}/${editingPostId}` : API_BASE_URL;
     const method = editingPostId ? 'PUT' : 'POST';
-
     try {
       const response = await fetch(url, {
         method,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(postData),
+        body: formData,
       });
 
       if (response.ok) {
@@ -51,7 +59,13 @@ function BlogModule() {
         setAuthor('');
         setContent('');
         setEditingPostId(null);
+        if (fileInputRef.current) {
+          fileInputRef.current.value = null;
+        }
         fetchPosts();
+        alert(editingPostId ? 'Post updated successfully!' : 'Post created successfully!');
+      } else {
+        console.error('Failed to submit post');
       }
     } catch (error) {
       console.error('Error submitting post:', error);
@@ -60,7 +74,7 @@ function BlogModule() {
 
   const handleDelete = async (postId) => {
     try {
-      const response = await fetch(`${API_URL}/${postId}`, { method: 'DELETE' });
+      const response = await fetch(`${API_BASE_URL}/${postId}`, { method: 'DELETE' });
       if (response.ok) {
         fetchPosts();
       }
@@ -74,10 +88,18 @@ function BlogModule() {
     setAuthor(post.author);
     setContent(post.content);
     setEditingPostId(post._id);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleLogout = ()=>{
+   localStorage.removeItem('token')
+   navigate('/auth')
+  }
+
   return (
-    <div className="App">
+    <div className="App-container">
+      <button onClick={handleLogout} style={{float:"right", padding:"10px", margin:"10px"}}>logout</button>
+       <h1 style={{textAlign:'center'}}>Blog Module</h1>
       <div className="form-section">
         <h2>{editingPostId ? 'Edit Post' : 'Create a New Post'}</h2>
         <form onSubmit={handleSubmit}>
@@ -98,6 +120,8 @@ function BlogModule() {
             value={content}
             onChange={(e) => setContent(e.target.value)}
           ></textarea><br />
+          <label>Upload Image: </label>
+          <input type="file" ref={fileInputRef} onChange={(e)=>setImage(e.target.files[0])} accept='image/png, image/jpg, image/jpeg' /><br />
           <button type="submit">{editingPostId ? 'Update Post' : 'Create Post'}</button>
         </form>
       </div>
@@ -106,9 +130,20 @@ function BlogModule() {
         <h2>Latest Posts</h2>
         {posts.map((post) => (
           <div key={post._id} className="post-card">
+            <div className='post-content'>
+            <div>
             <h3>{post.title}</h3>
             <p className="post-author">by {post.author}</p>
+            {post?.imageUrl && (
+              <img
+              src = {post.imageUrl}
+              alt= {post.title}
+              className='post-image '
+              />
+            )}
             <p>{post.content}</p>
+            </div>
+            </div>
             <div className="post-actions">
               <button onClick={() => handleEdit(post)}>Edit</button>
               <button onClick={() => handleDelete(post._id)}>Delete</button>
@@ -116,6 +151,7 @@ function BlogModule() {
           </div>
         ))}
       </div>
+
     </div>
   );
 }
